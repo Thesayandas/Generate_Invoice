@@ -9,14 +9,12 @@ import InvoiceItem from './InvoiceItem';
 import InvoiceModal from './InvoiceModal';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-
-
 class InvoiceForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
-      currency: '₹',
+      currency: '$',
       currentDate: '',
       invoiceNumber: 1,
       dateOfIssue: '',
@@ -125,7 +123,6 @@ class InvoiceForm extends React.Component {
   closeModal = (event) => this.setState({isOpen: false});
   render() {
     return (<Form onSubmit={this.openModal}>
-      <h2>A project by SD</h2>
       <Row>
         <Col md={8} lg={9}>
           <Card className="p-4 p-xl-5 my-3 my-xl-4">
@@ -133,7 +130,6 @@ class InvoiceForm extends React.Component {
               <div class="d-flex flex-column">
                 <div className="d-flex flex-column">
                   <div class="mb-2">
-                    <h6>Welcome To This Project!</h6>
                     <span className="fw-bold">Current&nbsp;Date:&nbsp;</span>
                     <span className="current-date">{new Date().toLocaleDateString()}</span>
                   </div>
@@ -214,7 +210,6 @@ class InvoiceForm extends React.Component {
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Currency:</Form.Label>
               <Form.Select onChange={event => this.onCurrencyChange({currency: event.target.value})} className="btn btn-light my-1" aria-label="Change Currency">
-                <option value="₹">INR (Indian Rupee)</option>
                 <option value="$">USD (United States Dollar)</option>
                 <option value="£">GBP (British Pound Sterling)</option>
                 <option value="¥">JPY (Japanese Yen)</option>
