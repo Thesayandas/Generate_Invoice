@@ -10,19 +10,26 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 function GenerateInvoice() {
-  html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
-    const imgData = canvas.toDataURL('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhx5qd_VIv2EjrNhDrQYwr_Gw5OyS-wOVwNMRcADwyIWTyHOMU1NrSJAajQtH8Vsg1h0H1CNoGWlV7cs5FSNegTsjOtwzco14dCnp6ZiOc5mlxAHjT0y6lZS6KHqbOg53RsnQT7kFE4F9IJf0J77iOrowvt9xKX9CqdbsgJsxp60pfxcG_w-tWWsbHYHwal/s200/TIAS%20Logo.png', 1.0);
+  const invoice = document.querySelector("#invoiceCapture");
+
+  html2canvas(invoice, {
+    useCORS: true,          // allow external images (with proper CORS headers)
+    allowTaint: true,       // required for non-CORS-safe images like Blogger CDN
+    scale: 2,               // increases PDF clarity
+    logging: false,
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png", 1.0); // correctly convert the canvas to Base64 PNG
     const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'pt',
-      format: [612, 792]
+      orientation: "portrait",
+      unit: "pt",
+      format: [612, 792],
     });
-    pdf.internal.scaleFactor = 1;
-    const imgProps = pdf.getImageProperties(imgData);
+
     const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save('invoice-001.pdf');
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("invoice-001.pdf");
   });
 }
 
@@ -42,7 +49,8 @@ class InvoiceModal extends React.Component {
               <div className="d-flex align-items-center">
                 <img
                   src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhx5qd_VIv2EjrNhDrQYwr_Gw5OyS-wOVwNMRcADwyIWTyHOMU1NrSJAajQtH8Vsg1h0H1CNoGWlV7cs5FSNegTsjOtwzco14dCnp6ZiOc5mlxAHjT0y6lZS6KHqbOg53RsnQT7kFE4F9IJf0J77iOrowvt9xKX9CqdbsgJsxp60pfxcG_w-tWWsbHYHwal/s200/TIAS%20Logo.png"
-                  alt="Company Logo"
+                  alt="TIAS Logo"
+                  crossOrigin="anonymous"
                   style={{ height: '50px', marginRight: '15px' }}
                 />
                 <div>
