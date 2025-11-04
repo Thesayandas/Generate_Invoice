@@ -27,7 +27,7 @@ class InvoiceItem extends React.Component {
         {/* ====== HEADER WITH COMPANY LOGO ====== */}
         <div className="d-flex align-items-center mb-3 border-bottom pb-2">
           <img
-            src="./main/src/TIAS%20Logo.png"
+            src="./TIAS%20Logo.png"
             alt="TIAS Logo"
             style={{ height: "60px", marginRight: "15px" }}
           />
