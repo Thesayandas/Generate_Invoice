@@ -11,7 +11,7 @@ import jsPDF from 'jspdf';
 
 function GenerateInvoice() {
   html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png', 1.0);
+    const imgData = canvas.toDataURL('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhx5qd_VIv2EjrNhDrQYwr_Gw5OyS-wOVwNMRcADwyIWTyHOMU1NrSJAajQtH8Vsg1h0H1CNoGWlV7cs5FSNegTsjOtwzco14dCnp6ZiOc5mlxAHjT0y6lZS6KHqbOg53RsnQT7kFE4F9IJf0J77iOrowvt9xKX9CqdbsgJsxp60pfxcG_w-tWWsbHYHwal/s200/TIAS%20Logo.png', 1.0);
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'pt',
